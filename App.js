@@ -6,32 +6,32 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AudioList from './screens/AudioList';
 import Player from './screens/Player';
 import { FontAwesome5 } from '@expo/vector-icons';
+import AudioProvider from './AudioProvider';
 
 const Tab = createBottomTabNavigator();
-
-/*screenOptions={({ route }) => ({
-        tabBarIcon: () => {
-          let iconName;
-          if (route.name === "AudioList")
-            iconName = "headphones"
-          else if (route.name === "Player")
-            iconName = "play";
-          return <FontAwesome5 name={iconName} size={24} color="purple" />
-        },
-        tabBarActiveTintColor: "purple",
-        tabBarInactiveTintColor: "gray"
-      })}*/
 
 export default function App() {
 
   return (
-    <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="AudioList" component={AudioList} />
-        <Tab.Screen name="Player" component={Player} />
-      </Tab.Navigator>
-    </NavigationContainer >
-
+    <AudioProvider>
+      <NavigationContainer>
+        <Tab.Navigator screenOptions={({ route }) => ({
+          tabBarIcon: () => {
+            let iconName;
+            if (route.name === "AudioList")
+              iconName = "itunes-note"
+            else if (route.name === "Player")
+              iconName = "play";
+            return <FontAwesome5 name={iconName} size={20} color="purple" />
+          },
+          tabBarActiveTintColor: "purple",
+          tabBarInactiveTintColor: "gray"
+        })}>
+          <Tab.Screen name="AudioList" component={AudioList} options={{ title: "Audio" }} />
+          <Tab.Screen name="Player" component={Player} />
+        </Tab.Navigator>
+      </NavigationContainer >
+    </AudioProvider>
   );
 }
 
