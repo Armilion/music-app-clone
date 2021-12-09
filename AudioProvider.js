@@ -7,7 +7,6 @@ export const AudioContext = createContext(); // context allows to give access to
 
 const AudioProvider = (props) => {
     const [permissionError, setpermissionError] = useState(false)
-    /* const [audioFiles, setAudioFiles] = useState([]); */
     const [playBackObject, setPlayBackObject] = useState(new Audio.Sound);
     const [soundObject, setSoundObject] = useState({ index: 0, duration: 0, filename: "" });
     const [play, setPlay] = useState(false);
@@ -48,7 +47,6 @@ const AudioProvider = (props) => {
             first: 5,
             mediaType: [MediaLibrary.MediaType.audio]
         });
-        /* setAudioFiles(media.assets); */
         setPlaylists([{ name: "Audio", list: media.assets }])
         setLibraryLength(media.assets.length);
     }
