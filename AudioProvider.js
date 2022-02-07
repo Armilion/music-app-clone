@@ -6,12 +6,12 @@ import * as MediaLibrary from 'expo-media-library';
 export const AudioContext = createContext(); // context allows to give access to specific data across all of the components, no matter how deep they are
 
 const AudioProvider = (props) => {
+    const [audioFiles, setAudioFiles] = useState([]);
     const [permissionError, setpermissionError] = useState(false)
     const [playBackObject, setPlayBackObject] = useState(new Audio.Sound);
     const [soundObject, setSoundObject] = useState({ index: 0, duration: 0, filename: "" });
     const [play, setPlay] = useState(false);
     const [libraryLength, setLibraryLength] = useState(0);
-    const [playlists, setPlaylists] = useState({ name: "", list: [] });
     const [isLoading, setLoading] = useState(true);
 
     const getPermission = async () => {
@@ -44,10 +44,10 @@ const AudioProvider = (props) => {
 
     const getAudioFiles = async () => {
         let media = await MediaLibrary.getAssetsAsync({
-            first: 5,
+            first: 50,
             mediaType: [MediaLibrary.MediaType.audio]
         });
-        setPlaylists([{ name: "Audio", list: media.assets }])
+        setAudioFiles(media.assets)
         setLibraryLength(media.assets.length);
     }
 
@@ -56,8 +56,8 @@ const AudioProvider = (props) => {
     }, []);
 
     useEffect(() => {
-        if (playlists.length > 0) setLoading(false);
-    }, [playlists]);
+        if (audioFiles.length > 0) setLoading(false);
+    }, [audioFiles]);
 
     if (permissionError)
         return (
@@ -66,7 +66,7 @@ const AudioProvider = (props) => {
             </View>)
     else
         return (
-            <AudioContext.Provider value={{ /* audioFiles, */ playBackObject, soundObject, setSoundObject, play, setPlay, libraryLength, playlists, setPlaylists, isLoading }}>
+            <AudioContext.Provider value={{audioFiles, playBackObject, soundObject, setSoundObject, play, setPlay, libraryLength, isLoading }}>
                 {props.children}
             </AudioContext.Provider>
         )

@@ -12,8 +12,8 @@ const AudioList = (props) => {
     return (
         <View>
             <StatusBar theme="light" />
-            <ScrollView>
-                {!audioContext.isLoading && audioContext.playlists[props.indexPlaylist].list.map((file, index) => (
+            {/* <ScrollView>
+                {audioContext && !audioContext.isLoading && audioContext.playlists[props.indexPlaylist].list.map((file, index) => (
                     <ListItem key={index} bottomDivider onPress={() => props.navigation.navigate("Player", { index: index, uri: file.uri })}>
                         <Avatar rounded source={{ uri: "https://images.squarespace-cdn.com/content/v1/5d2e2c5ef24531000113c2a4/1564770283494-NFSE37KNC9HTBH88B2MP/image-asset.png?format=500w" }} />
                         <ListItem.Content>
@@ -22,7 +22,7 @@ const AudioList = (props) => {
                         </ListItem.Content>
                     </ListItem>
                 ))}
-            </ScrollView>
+            </ScrollView> */}
         </View>
     )
 }
